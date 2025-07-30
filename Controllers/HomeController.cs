@@ -15,7 +15,10 @@ namespace CardShuffler.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            Deck d = new Deck();
+            d.Shuffle();
+            List<Card> deck = d.getAllCards();
+            return View(deck);
         }
 
         public IActionResult Privacy()

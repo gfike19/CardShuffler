@@ -5,12 +5,12 @@ namespace CardShuffler.Models
 {
     public class Deck : IEnumerable
     {
-                private List<Card> set;
+        private List<Card> cards;
         private int count;
 
         public Deck()
         {
-            this.set = new List<Card>();
+            this.cards = new List<Card>();
 
             string[] suits = { "hearts", "clubs", "diamonds", "spades" };
             List<string> vals = new List<string>{"ace", "king", "queen", "jack",
@@ -21,14 +21,14 @@ namespace CardShuffler.Models
                 foreach(string val in vals)
                 {
                    Card c = new Card(suit, val);
-                    this.set.Add(c);
+                    this.cards.Add(c);
                 }
             }
         }
 
         public void Shuffle ()
         {
-            RandomNumberGenerator provider = new();
+            RandomNumberGenerator provider = RandomNumberGenerator.Create();
             //is less than half of the deck
             int n = 25;
             
@@ -39,23 +39,29 @@ namespace CardShuffler.Models
                 while (!(box[0] < n * (Byte.MaxValue / n)));
                 int k = (box[0] % n);
                 n--;
-                Card value = this.set[k];
-                this.set[k] = this.set[n];
-                this.set[n] = value;
+                Card value = this.cards[k];
+                this.cards[k] = this.cards[n];
+                this.cards[n] = value;
             }
         }
 
         public int GetCount ()
         {
-            return this.set.Count();
+            return this.cards.Count();
         }
 
         public Card Draw ()
         {
-            Card c = this.set.First();
-            set.Remove(c);
+            Card c = this.cards.First();
+            cards.Remove(c);
             return c;
         }
+        
+        public List<Card> getAllCards()
+        {
+            return this.cards;
+        }
+
 
         public IEnumerator GetEnumerator()
         {
