@@ -3,7 +3,8 @@ using System.Security.Cryptography;
 
 namespace CardShuffler.Models
 {
-    public class Deck : IEnumerable
+    //public class Deck : IEnumerable
+    public class Deck
     {
         private List<Card> cards;
         private int count;
@@ -63,9 +64,9 @@ namespace CardShuffler.Models
         }
 
 
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        //public IEnumerator GetEnumerator()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

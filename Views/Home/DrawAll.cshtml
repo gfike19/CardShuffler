@@ -1,0 +1,18 @@
+﻿@model List<Card>
+
+@{
+    ViewData["Title"] = "Draw All";
+}
+
+<h1>Draw All</h1>
+
+
+<div class="container">
+        <ul>
+            @foreach (var c in Model)
+            {
+                <li>@c.GetValueAndSuit()</li>
+            }
+        </ul>
+    </div>
+

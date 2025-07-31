@@ -1,13 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model List<Card>
+@model dynamic
 
-<div class="container">
-        <ul>
-            @foreach (var c in Model)
-            {
-                <li>@c.GetValueAndSuit()</li>
-            }
-        </ul>
-    </div>
+<form asp-action="Index" method="post">
+    <button type="submit" name="action" value="drawOne" class="btn btn-dark">Draw One Card</button>
+    <button type="submit" name="action" value="drawAll" class="btn btn-secondary">Draw All Cards</button>
+</form>

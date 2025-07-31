@@ -1,6 +1,8 @@
-using System.Diagnostics;
 using CardShuffler.Models;
+using CardShuffler.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace CardShuffler.Controllers
 {
@@ -13,17 +15,41 @@ namespace CardShuffler.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             Deck d = new Deck();
             d.Shuffle();
-            List<Card> deck = d.getAllCards();
-            return View(deck);
+            var model = new IndexViewModel
+            {
+                deck = d
+            };
+            return View(model);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(IndexViewModel model, string action)
         {
+            if (action == "drawOne")
+                return RedirectToAction("DrawOne", new { data = model.deck });
+            else if (action == "drawAll")
+                return RedirectToAction("DrawAll", new { data = model.deck });
+
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult DrawOne(Deck deck)
+        {
+            Card c = deck.Draw();
+            return View(c);
+        }
+
+        [HttpGet]
+        public IActionResult DrawAll(Deck deck)
+        {
+            List<Card> cards = deck.getAllCards();
+            return View(cards);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
